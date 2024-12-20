@@ -1,7 +1,7 @@
 // Import Student Controller
-const StudentController = require('../controller/StudentController');
+import StudentController from '../controller/StudentController.js';
 
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -15,4 +15,4 @@ router.put('/students/:id', StudentController.update);
 router.delete('/students/:id', StudentController.destroy);
 
 // Export router
-module.exports = router;
+export default router;
