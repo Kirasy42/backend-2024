@@ -1,8 +1,11 @@
 // import mysql
-const mysql = require("mysql");
+// const mysql = require("mysql");
+import mysql from 'mysql';
 
 // import dotenv dan jalankan method config
-require("dotenv").config();
+// require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // destructing object process.env
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
@@ -29,4 +32,5 @@ db.connect((err) => {
   }
 });
 
-module.exports = db;
+// module.exports = db;
+export default db;

@@ -1,5 +1,6 @@
 // import Model Student
-const Student = require("../models/Student");
+// const Student = require("../models/Student");
+import Student from "../models/Student.js";
 
 class StudentController {
   // menambahkan keyword async
@@ -23,8 +24,7 @@ class StudentController {
       res.status(200).json({
         message: "Shows a Data of Students",
         data: studentData
-      }
-      )
+      })
     } else {
       res.status(404).json({message: "Student data not found!"});
     }
@@ -50,27 +50,43 @@ class StudentController {
     res.status(201).json(data);
   }
 
-  update(req, res) {
+  async update(req, res) {
     const { id } = req.params;
-    const { nama } = req.body;
+    const { nama, nim, email, jurusan } = req.body;
 
-    const data = {
-      message: `Mengedit student id ${id}, nama ${nama}`,
-      data: [],
-    };
+    if (!nama || !nim || !email || !jurusan){
+      return res.status(400).json({
+        message: "Semua Field (nama, nim, email, jurusan) Harus Diisi!",
+      });
+    }
 
-    res.json(data);
+    const updatedStudent = await Student.update(id, {nama, nim, email, jurusan});
+
+    if (updatedStudent){
+      res.status(200).json({
+        message: `Updated Student ID : ${id}`,
+        data: updatedStudent,
+      });
+    } else{
+      res.status(404).json({
+        message: "Student data not Found!"
+      });
+    }
   }
 
-  destroy(req, res) {
+  async destroy(req, res) {
     const { id } = req.params;
 
-    const data = {
-      message: `Menghapus student id ${id}`,
-      data: [],
-    };
+    const deleted = await Student.delete(id);
 
-    res.json(data);
+    if (deleted){
+      res.status(200).json({
+        message: "Student Data is Deleted Successfuly",
+        data: id
+      });
+    } else {
+      res.status(404).json({message: "Student data is not Found!"})
+    }
   }
 }
 
@@ -78,4 +94,5 @@ class StudentController {
 const object = new StudentController();
 
 // Export object StudentController
-module.exports = object;
+// module.exports = object;
+export default object;
