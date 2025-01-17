@@ -15,7 +15,8 @@ const { APP_PORT } = process.env;
 
 app.use(express.json());
 
-app.use('/news', auth, newsRoutes);
+// JANGAN LUPA Gunakan link "api/" misalkan "http://localhost:3000/api/news/search" 
+app.use('/api', auth, newsRoutes);
 
 app.listen(APP_PORT, () => {
     console.log(`Server is running on http://localhost:${APP_PORT}`);
