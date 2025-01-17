@@ -82,10 +82,10 @@ class NewsController {
         }
     }
 
-    // Mengambil berita berdasarkan kategori
-    static async findByCategory(req, res, category) {
+    // Mengambil berita kategori sport
+    static async sport(req, res) {
         try {
-            const results = await NewsModel.findByCategory(category);
+            const results = await NewsModel.findByCategory("sport");
             if (results.length === 0) {
                 return res.status(404).json({ message: 'Resource not found' });
             }
@@ -95,19 +95,30 @@ class NewsController {
         }
     }
 
-    // Mengambil berita kategori sport
-    static async sport(req, res) {
-        return NewsController.findByCategory(req, res, "sport");
-    }
-
     // Mengambil berita kategori finance
     static async finance(req, res) {
-        return NewsController.findByCategory(req, res, "finance");
+        try {
+            const results = await NewsModel.findByCategory("finance");
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'Resource not found' });
+            }
+            res.status(200).json({ message: `The request succeeded`, data: results });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
     }
 
     // Mengambil berita kategori automotive
     static async automotive(req, res) {
-        return NewsController.findByCategory(req, res, "automotive");
+        try {
+            const results = await NewsModel.findByCategory("automotive");
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'Resource not found' });
+            }
+            res.status(200).json({ message: `The request succeeded`, data: results });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
     }
 }
 
