@@ -83,8 +83,7 @@ class NewsController {
     }
 
     // Mengambil berita berdasarkan kategori
-    static async findByCategory(req, res) {
-        const category = req.params.category;
+    static async findByCategory(req, res, category) {
         try {
             const results = await NewsModel.findByCategory(category);
             if (results.length === 0) {
@@ -98,17 +97,17 @@ class NewsController {
 
     // Mengambil berita kategori sport
     static async sport(req, res) {
-        return this.findByCategory(req, res);
+        return NewsController.findByCategory(req, res, "sport");
     }
 
     // Mengambil berita kategori finance
     static async finance(req, res) {
-        return this.findByCategory(req, res);
+        return NewsController.findByCategory(req, res, "finance");
     }
 
     // Mengambil berita kategori automotive
     static async automotive(req, res) {
-        return this.findByCategory(req, res);
+        return NewsController.findByCategory(req, res, "automotive");
     }
 }
 
