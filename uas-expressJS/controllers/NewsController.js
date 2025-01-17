@@ -6,9 +6,9 @@ class NewsController {
         try {
             const results = await NewsModel.all();
             if (results.length === 0) {
-                return res.status(200).json({ message: 'Data is empty' });
+                return res.status(204).json({ message: 'No content to send' });
             }
-            res.status(200).json({ message: 'Get All Resource', data: results });
+            res.status(200).json({ message: 'The request succeeded', data: results });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
@@ -19,7 +19,7 @@ class NewsController {
         const newsData = req.body;
         try {
             const result = await NewsModel.create(newsData);
-            res.status(201).json({ message: 'Resource is added successfully', data: result });
+            res.status(201).json({ message: 'Resource created', data: result });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
@@ -31,10 +31,10 @@ class NewsController {
         const newsData = req.body;
         try {
             const result = await NewsModel.update(id, newsData);
-            res.status(200).json({ message: 'News updated successfully', data: result });
+            res.status(200).json({ message: 'The request succeeded', data: result });
         } catch (err) {
             if (err.message === 'News not found') {
-                return res.status(404).json({ message: 'News not found' });
+                return res.status(404).json({ message: 'Resource not found' });
             }
             res.status(500).json({ error: err.message });
         }
@@ -48,7 +48,7 @@ class NewsController {
             res.status(204).json(result);
         } catch (err) {
             if (err.message === 'News not found') {
-                return res.status(404).json({ message: 'News not found' });
+                return res.status(404).json({ message: 'Resource not found' });
             }
             res.status(500).json({ error: err.message });
         }
@@ -59,10 +59,10 @@ class NewsController {
         const id = req.params.id;
         try {
             const result = await NewsModel.find(id);
-            res.status(200).json({ message: 'Get Detail Resource', data: result });
+            res.status(200).json({ message: 'The request succeeded', data: result });
         } catch (err) {
             if (err.message === 'News not found') {
-                return res.status(404).json({ message: 'News not found' });
+                return res.status(404).json({ message: 'Resource not found' });
             }
             res.status(500).json({ error: err.message });
         }
@@ -76,7 +76,7 @@ class NewsController {
             if (results.length === 0) {
                 return res.status(404).json({ message: 'Resource not found' });
             }
-            res.status(200).json({ message: 'Get searched resource', data: results });
+            res.status(200).json({ message: 'The request succeeded', data: results });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
@@ -89,7 +89,7 @@ class NewsController {
             if (results.length === 0) {
                 return res.status(404).json({ message: 'Resource not found' });
             }
-            res.status(200).json({ message: `Get ${category} resource`, data: results });
+            res.status(200).json({ message: `The request succeeded`, data: results });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
